@@ -8,14 +8,7 @@ const produit = {
     quantite: 5
 };
 
-const totale_btn = document.getElementById("btn1");
-
-function afficher_totale(produit) {
-    let totale = produit.prix * produit.quantite;
-    console.log(totale);
-}
-
-totale_btn.onclick = () => afficher_totale(produit);
+console.log(`Valeur du stock de produit1: ${produit.prix * produit.quantite}`);
 
 // 2
 
@@ -47,21 +40,30 @@ const catalogue = [
     },
 ];
 
-function afficher_depasse_moy(catalogue) {
-    let sum = 0;
-    for (let i = 0; i < catalogue.length; i++) {
-        sum += catalogue[i].prix;
-    }
+const somme = catalogue.reduce((acc, produit) => acc + produit.prix, 0);
 
-    let moy = sum / catalogue.length;
+const moyenne = somme / catalogue.length;
 
-    for (let i = 0; i < catalogue.length; i++) {
-        if (catalogue[i].prix > moy) {
-            console.log(catalogue[i].nom);
-        }
+const depasse_moy = catalogue.filter(produit => produit.prix > moyenne);
+
+console.log("Les produits qui depassent le prix moyen:");
+depasse_moy.forEach(p => console.log(p.nom, p.prix));
+
+// 5
+
+function appliquer(catalogue, traitement) {
+    for (const produit of catalogue) {
+        traitement(produit);
     }
 }
 
-const moy_btn = document.getElementById("btn2");
+function print_nom(produit) {
+    console.log(produit.nom);
+}
 
-moy_btn.onclick = () => afficher_depasse_moy(catalogue);
+function print_prix(produit) {
+    console.log(produit.prix);
+}
+
+appliquer(catalogue, print_nom);
+appliquer(catalogue, print_prix);
