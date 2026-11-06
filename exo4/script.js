@@ -49,6 +49,25 @@ const depasse_moy = catalogue.filter(produit => produit.prix > moyenne);
 console.log("Les produits qui depassent le prix moyen:");
 depasse_moy.forEach(p => console.log(p.nom, p.prix));
 
+// 3
+
+const nb_articles = catalogue.reduce((acc, produit) => acc + produit.quantite, 0);
+
+const valeur_globale_stock = catalogue.reduce((acc, produit) => acc + (produit.quantite * produit.prix), 0);
+
+console.log(`Nombre total d'articles disponibles: ${nb_articles}`);
+console.log(`Valeur globale du stock: ${valeur_globale_stock}`);
+
+// 4
+
+function calculer_valeur_stock(produit) {
+    return produit.quantite * produit.prix;
+}
+
+for (const produit of catalogue) {
+    console.log(`Valeur du stock de ${produit.nom}: ${calculer_valeur_stock(produit)}`);
+}
+
 // 5
 
 function appliquer(catalogue, traitement) {
